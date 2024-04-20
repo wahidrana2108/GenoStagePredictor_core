@@ -30,6 +30,12 @@ def handle_client(conn, addr):
                 conn.close()
                 print(f"[DISCONNECTED] {addr} disconnected.")
                 return
+        elif data == "RemoveMachine":
+            print(f"[REMOVE MACHINE REQUEST] {addr} requested to remove machine from active machine list.")
+            machine_number = connections.get(conn)
+            if machine_number:
+                connected_machines.remove(machine_number)
+                update_active_connections()
 
         # Split received data into username and password
         username, password = data.split(',')
@@ -58,6 +64,7 @@ def handle_client(conn, addr):
         connected_machines.remove(machine_number)
         update_active_connections()
     conn.close()
+
 
 def authenticate_user(username, password):
     with open('user_credentials.txt', 'r') as file:

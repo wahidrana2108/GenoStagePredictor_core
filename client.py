@@ -1,5 +1,3 @@
-# Client code
-
 import socket
 import datetime
 import pandas as pd
@@ -100,6 +98,9 @@ def main():
 
         # Inform server about disconnection request
         send("Disconnect")
+
+        # Inform server to remove machine number from active machine list
+        send("RemoveMachine")
 
         # Close the client
         client.close()
